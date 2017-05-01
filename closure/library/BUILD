@@ -24,7 +24,6 @@ closure_js_library(
     srcs = ["@closure_library//:js_library_files"],
     language = "ECMASCRIPT5_STRICT",
     suppress = [
-        "CR_INVALID_SETTESTONLY",
         "JSC_DUPLICATE_ENUM_VALUE",
         "JSC_EXTRA_REQUIRE_WARNING",
         "JSC_ILLEGAL_PROTOTYPE_MEMBER",
@@ -35,6 +34,7 @@ closure_js_library(
         "JSC_MISSING_SEMICOLON",
         "JSC_MUST_BE_PRIVATE",
         "JSC_PROVIDES_NOT_SORTED",
+        "JSC_UNNECESSARY_ESCAPE",
     ],
 )
 

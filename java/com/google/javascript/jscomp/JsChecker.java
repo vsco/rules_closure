@@ -92,8 +92,7 @@ public final class JsChecker {
   private enum Convention {
     NONE(CodingConventions.getDefault()),
     CLOSURE(new JsCheckerClosureCodingConvention()),
-    GOOGLE(new GoogleCodingConvention()),
-    JQUERY(new JqueryCodingConvention());
+    GOOGLE(new GoogleCodingConvention());
 
     final CodingConvention convention;
 

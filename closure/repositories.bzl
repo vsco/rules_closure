@@ -225,8 +225,8 @@ def clang():
 def closure_compiler():
   native.maven_jar(
       name = "closure_compiler",
-      artifact = "com.google.javascript:closure-compiler-unshaded:v20170124",
-      sha1 = "e6ac8a24b82d052f6a2ad7988ec326f2303100e6",
+      artifact = "com.google.javascript:closure-compiler-unshaded:v20170423",
+      sha1 = "bdda73d7e2bd001913d4563a12ded21179ccec9f",
       server = "closure_maven_server",
   )
 
@@ -236,9 +236,9 @@ def closure_library():
   # closure_library.BUILD.
   native.new_http_archive(
       name = "closure_library",
-      url = "http://bazel-mirror.storage.googleapis.com/github.com/google/closure-library/archive/v20170124.tar.gz",
-      sha256 = "2bd046004e741283641f761ab0a2c7caf4a457db4b3b81bd3299eeca609c11a2",
-      strip_prefix = "closure-library-20170124",
+      url = "http://bazel-mirror.storage.googleapis.com/github.com/google/closure-library/archive/0e309e9c5fb611a70a47736a2eb1204ae48ab989.tar.gz",
+      sha256 = "08b34d8efe3026f106c1ae2901a2cd1c7106be0c4173681c1fc57415e8532be9",
+      strip_prefix = "closure-library-0e309e9c5fb611a70a47736a2eb1204ae48ab989",
       build_file = str(Label("//closure/library:closure_library.BUILD")),
   )
 
@@ -348,8 +348,8 @@ def json():
 def jsr305():
   native.maven_jar(
       name = "jsr305",
-      artifact = "com.google.code.findbugs:jsr305:1.3.9",
-      sha1 = "40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf",
+      artifact = "com.google.code.findbugs:jsr305:2.0.3",
+      sha1 = "5871fb60dc68d67da54a663c3fd636a10a532948",
       server = "closure_maven_server",
   )
 
@@ -447,8 +447,8 @@ def safe_html_types_html_proto():
 def soy():
   native.maven_jar(
       name = "soy",
-      artifact = "com.google.template:soy:2017-02-01",
-      sha1 = "8638940b207779fe3b75e55b6e65abbefb6af678",
+      artifact = "com.google.template:soy:2017-04-23",
+      sha1 = "52f32a5a3801ab97e0909373ef7f73a3460d0802",
       server = "closure_maven_server",
   )
 

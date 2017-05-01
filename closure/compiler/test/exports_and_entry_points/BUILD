@@ -69,7 +69,7 @@ closure_js_binary(
 
 file_test(
     name = "es6_exportedFunction_isOnlyThingInResultingBinary",
-    content = "function a(){console.log(\"hi\")}var b=[\"iWillGoIntoTheBinary\"],c=this;b[0]in c||!c.execScript||c.execScript(\"var \"+b[0]);for(var d;b.length&&(d=b.shift());)b.length||void 0===a?c[d]?c=c[d]:c=c[d]={}:c[d]=a;\n",
+    content = "function a(){console.log(\"hi\")}var b=[\"iWillGoIntoTheBinary\"],c=this;b[0]in c||!c.execScript||c.execScript(\"var \"+b[0]);for(var d;b.length&&(d=b.shift());)b.length||void 0===a?c[d]&&c[d]!==Object.prototype[d]?c=c[d]:c=c[d]={}:c[d]=a;\n",
     file = "library_bin.js",
 )
 
@@ -99,7 +99,7 @@ file_test(
     name = "goog_exportedFunction_isOnlyThingInResultingBinary",
     # This looks more complicated than you'd expect, because it's actually
     # compiling the synthetic goog.exportSymbol() call that @export generates.
-    content = "function a(){console.log(\"hi\")}var b=[\"io\",\"bazel\",\"rules\",\"closure\",\"iWillGoIntoTheBinary\"],c=this;b[0]in c||!c.execScript||c.execScript(\"var \"+b[0]);for(var d;b.length&&(d=b.shift());)b.length||void 0===a?c[d]?c=c[d]:c=c[d]={}:c[d]=a;\n",
+    content = "function a(){console.log(\"hi\")}var b=[\"io\",\"bazel\",\"rules\",\"closure\",\"iWillGoIntoTheBinary\"],c=this;b[0]in c||!c.execScript||c.execScript(\"var \"+b[0]);for(var d;b.length&&(d=b.shift());)b.length||void 0===a?c[d]&&c[d]!==Object.prototype[d]?c=c[d]:c=c[d]={}:c[d]=a;\n",
     file = "library_goog_bin.js",
 )
 
