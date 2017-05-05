@@ -162,7 +162,7 @@ def _impl(ctx):
   ctx.action(
       inputs=inputs,
       outputs=outputs,
-      executable=ctx.executable._ClosureUberAlles,
+      executable=ctx.executable._ClosureWorker,
       arguments=["@@" + argfile.path],
       mnemonic="Closure",
       execution_requirements={"supports-workers": "1"},
@@ -253,8 +253,8 @@ closure_js_binary = rule(
         # internal only
         "internal_expect_failure": attr.bool(default=False),
         "internal_expect_warnings": attr.bool(default=False),
-        "_ClosureUberAlles": attr.label(
-            default=Label("//java/io/bazel/rules/closure:ClosureUberAlles"),
+        "_ClosureWorker": attr.label(
+            default=Label("//java/io/bazel/rules/closure:ClosureWorker"),
             executable=True,
             cfg="host"),
         "_closure_library_base": CLOSURE_LIBRARY_BASE_ATTR,

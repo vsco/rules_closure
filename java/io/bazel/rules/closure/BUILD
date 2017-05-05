@@ -15,12 +15,16 @@
 load("//closure/private:java_proto_library.bzl", "java_proto_library")
 
 java_binary(
-    name = "ClosureUberAlles",
+    name = "ClosureWorker",
     srcs = [
         "BazelWorker.java",
-        "ClosureUberAlles.java",
+        "ClosureWorker.java",
     ],
-    main_class = "io.bazel.rules.closure.ClosureUberAlles",
+    jvm_flags = [
+        "-Xss20m",  # JSCompiler needs big stacks for recursive parsing
+        "-XX:+UseParallelGC",  # Best GC when app isn't latency sensitive
+    ],
+    main_class = "io.bazel.rules.closure.ClosureWorker",
     visibility = ["//visibility:public"],
     deps = [
         ":worker_protocol_proto",

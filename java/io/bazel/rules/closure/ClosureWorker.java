@@ -23,11 +23,11 @@ import com.google.javascript.jscomp.JsCompiler;
 import io.bazel.rules.closure.program.CommandLineProgram;
 
 /** Bazel worker for all Closure Tools programs, some of which are modded. */
-public final class ClosureUberAlles implements CommandLineProgram {
+public final class ClosureWorker implements CommandLineProgram {
 
   public static void main(String[] args) {
     System.exit(
-        new BazelWorker(new ClosureUberAlles(), "Closure")
+        new BazelWorker(new ClosureWorker(), "Closure")
             .apply(ImmutableList.copyOf(args)));
   }
 
@@ -43,7 +43,7 @@ public final class ClosureUberAlles implements CommandLineProgram {
         return new JsCompiler().apply(tail);
       default:
         System.err.println(
-            "\nERROR: First flag to ClosureUberAlles should be specific compiler to run, "
+            "\nERROR: First flag to ClosureWorker should be specific compiler to run, "
                 + "e.g. JsChecker\n");
         return 1;
     }
