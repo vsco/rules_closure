@@ -132,7 +132,7 @@ public final class JsChecker {
   @Option(
       name = "--language",
       usage = "Language spec of input sources.")
-  private LanguageMode language = LanguageMode.ECMASCRIPT5_STRICT;
+  private LanguageMode language = LanguageMode.ECMASCRIPT_2017;
 
   @Option(
       name = "--suppress",

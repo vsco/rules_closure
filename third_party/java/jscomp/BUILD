@@ -10,6 +10,7 @@ java_library(
     visibility = ["//visibility:public"],
     exports = ["@closure_compiler//jar"],
     runtime_deps = [
+        "@errorprone//jar",
         "@gson//jar",
         "@guava//jar",
         "@jsr305//jar",

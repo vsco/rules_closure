@@ -53,7 +53,6 @@ closure_js_library(
 rule_test(
     name = "a_rule_test",
     provides = {
-        "js_language": "^\"ECMASCRIPT5_STRICT\"$",
         "js_exports": "^\\[\\]$",
         "transitive_js_srcs": "/a.js\\]",
     },
@@ -63,7 +62,6 @@ rule_test(
 rule_test(
     name = "b_rule_test",
     provides = {
-        "js_language": "^\"ECMASCRIPT5_STRICT\"$",
         "js_exports": "^\\[\\]$",
         "transitive_js_srcs": "/a\\.js.*/b\\.js\\]",
     },
@@ -73,7 +71,6 @@ rule_test(
 rule_test(
     name = "c_rule_test",
     provides = {
-        "js_language": "^\"ECMASCRIPT5_STRICT\"$",
         "js_exports": "^\\[\\]$",
         "transitive_js_srcs": "/a\\.js.*/b\\.js.*/c\\.js\\]",
     },
@@ -83,7 +80,6 @@ rule_test(
 rule_test(
     name = "t_rule_test",
     provides = {
-        "js_language": "^\"ECMASCRIPT5_STRICT\"$",
         "js_exports": "^\\[\\]$",
         "transitive_js_srcs": "/t\\.js\\]",
     },

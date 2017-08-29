@@ -25,6 +25,7 @@ java_library(
         "@asm_analysis//jar",
         "@asm_commons//jar",
         "@asm_util//jar",
+        "@errorprone//jar",
         "@gson//jar",
         "@guava//jar",
         "@guice//jar",

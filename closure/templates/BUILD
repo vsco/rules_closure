@@ -32,7 +32,6 @@ closure_js_proto_library(
 closure_js_library(
     name = "soy_jssrc",
     srcs = ["@soy_jssrc//:com_google_template_soy_jssrc"],
-    suppress = ["JSC_OPTIONAL_PARAM_NOT_MARKED_OPTIONAL"],
     deps = [
         ":soy_html_proto",
         "//closure/library",
@@ -55,6 +54,8 @@ java_library(
     runtime_deps = [
         "@errorprone//jar",
         "@guava//jar",
+        "@jsinterop_annotations//jar",
+        "@jsr250//jar",
         "@jsr305//jar",
         "@protobuf_java//jar",
     ],

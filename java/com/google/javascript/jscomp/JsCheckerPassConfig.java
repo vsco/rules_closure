@@ -29,6 +29,7 @@ import com.google.javascript.jscomp.lint.CheckPrototypeProperties;
 import com.google.javascript.jscomp.lint.CheckRequiresAndProvidesSorted;
 import com.google.javascript.jscomp.lint.CheckUnusedLabels;
 import com.google.javascript.jscomp.lint.CheckUselessBlocks;
+import com.google.javascript.jscomp.parsing.parser.FeatureSet;
 import java.util.List;
 
 final class JsCheckerPassConfig extends PassConfig.PassConfigDelegate {
@@ -69,14 +70,19 @@ final class JsCheckerPassConfig extends PassConfig.PassConfigDelegate {
                   new CheckMissingSuper(compiler),
                   new CheckPrimitiveAsObject(compiler),
                   new CheckRequiresAndProvidesSorted(compiler),
-                  new CheckRequiresForConstructors(
-                      compiler, CheckRequiresForConstructors.Mode.SINGLE_FILE),
+                  new CheckMissingAndExtraRequires(
+                      compiler, CheckMissingAndExtraRequires.Mode.SINGLE_FILE),
                   new CheckUnusedLabels(compiler),
                   new CheckUselessBlocks(compiler),
                   new ClosureCheckModule(compiler),
                   new Es6SuperCheck(compiler),
                   new CheckSetTestOnly(state, compiler),
                   new CheckStrictDeps.FirstPass(state, compiler)));
+        }
+
+        @Override
+        protected FeatureSet featureSet() {
+          return FeatureSet.latest().withoutTypes();
         }
       };
 
@@ -85,6 +91,11 @@ final class JsCheckerPassConfig extends PassConfig.PassConfigDelegate {
         @Override
         protected HotSwapCompilerPass create(AbstractCompiler compiler) {
           return new ClosureRewriteClass(compiler);
+        }
+
+        @Override
+        protected FeatureSet featureSet() {
+          return FeatureSet.latest().withoutTypes();
         }
       };
 
@@ -98,6 +109,11 @@ final class JsCheckerPassConfig extends PassConfig.PassConfigDelegate {
                   new CheckInterfaces(compiler),
                   new CheckPrototypeProperties(compiler),
                   new CheckStrictDeps.SecondPass(state, compiler)));
+        }
+
+        @Override
+        protected FeatureSet featureSet() {
+          return FeatureSet.latest().withoutTypes();
         }
       };
 }

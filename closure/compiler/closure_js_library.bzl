@@ -50,7 +50,8 @@ def _impl(ctx):
       "--output_errors", ctx.outputs.stderr.path,
       "--label", ctx.label,
       "--convention", ctx.attr.convention,
-      "--language", _determine_check_language(ctx.attr.language),
+      "--language", _kludge_js_language(
+          _determine_check_language(ctx.attr.language)),
   ]
   proto_descriptor_sets = []
   if ctx.attr.proto_descriptor_set:
@@ -108,6 +109,11 @@ def _impl(ctx):
 def _determine_check_language(language):
   if language == "ANY":
     return "ECMASCRIPT3"
+  return language
+
+def _kludge_js_language(language):
+  if language in ("ECMASCRIPT6", "ECMASCRIPT6_STRICT"):
+    return "ECMASCRIPT_2017"
   return language
 
 closure_js_library = rule(

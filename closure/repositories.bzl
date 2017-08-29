@@ -39,7 +39,9 @@ def closure_repositories(
     omit_guice_multibindings=False,
     omit_icu4j=False,
     omit_incremental_dom=False,
+    omit_jsinterop_annotations=False,
     omit_json=False,
+    omit_jsr250=False,
     omit_jsr305=False,
     omit_jsr330_inject=False,
     omit_libexpat_amd64_deb=False,
@@ -96,8 +98,12 @@ def closure_repositories(
     icu4j()
   if not omit_incremental_dom:
     incremental_dom()
+  if not omit_jsinterop_annotations:
+    jsinterop_annotations()
   if not omit_json:
     json()
+  if not omit_jsr250:
+    jsr250()
   if not omit_jsr305:
     jsr305()
   if not omit_jsr330_inject:
@@ -225,8 +231,8 @@ def clang():
 def closure_compiler():
   native.maven_jar(
       name = "closure_compiler",
-      artifact = "com.google.javascript:closure-compiler-unshaded:v20170423",
-      sha1 = "bdda73d7e2bd001913d4563a12ded21179ccec9f",
+      artifact = "com.google.javascript:closure-compiler-unshaded:v20170806",
+      sha1 = "1502e3813149a51d470e48e4c1a5c177968e08d0",
       server = "closure_maven_server",
   )
 
@@ -236,9 +242,9 @@ def closure_library():
   # closure_library.BUILD.
   native.new_http_archive(
       name = "closure_library",
-      url = "http://bazel-mirror.storage.googleapis.com/github.com/google/closure-library/archive/0e309e9c5fb611a70a47736a2eb1204ae48ab989.tar.gz",
-      sha256 = "08b34d8efe3026f106c1ae2901a2cd1c7106be0c4173681c1fc57415e8532be9",
-      strip_prefix = "closure-library-0e309e9c5fb611a70a47736a2eb1204ae48ab989",
+      url = "http://bazel-mirror.storage.googleapis.com/github.com/google/closure-library/archive/v20170806.tar.gz",
+      sha256 = "03571b5f69c3fb1ba92633b089baaffdaa994c2f7ec4f94b05725632d70d3896",
+      strip_prefix = "closure-library-20170806",
       build_file = str(Label("//closure/library:closure_library.BUILD")),
   )
 
@@ -251,16 +257,16 @@ def closure_maven_server():
 def closure_stylesheets():
   native.maven_jar(
       name = "closure_stylesheets",
-      artifact = "com.google.closure-stylesheets:closure-stylesheets:1.4.0",
-      sha1 = "ae6a43ac97312c74328b5b2e9135e5126b286fa3",
+      artifact = "com.google.closure-stylesheets:closure-stylesheets:1.5.0",
+      sha1 = "0d2b1c0dcba2ac4e13f28721f89134f7333fed2c",
       server = "closure_maven_server",
   )
 
 def errorprone():
   native.maven_jar(
       name = "errorprone",
-      artifact = "com.google.errorprone:error_prone_annotations:2.0.15",
-      sha1 = "822652ed7196d119b35d2e22eb9cd4ffda11e640",
+      artifact = "com.google.errorprone:error_prone_annotations:2.0.19",
+      sha1 = "c3754a0bdd545b00ddc26884f9e7624f8b6a14de",
       server = "closure_maven_server",
   )
 
@@ -337,11 +343,27 @@ def incremental_dom():
       sha256 = "554a778dff5cba561a98619b2f3de5061848744644c870f718e2cdcf9bf0dccf",
   )
 
+def jsinterop_annotations():
+  native.maven_jar(
+      name = "jsinterop_annotations",
+      artifact = "com.google.jsinterop:jsinterop-annotations:1.0.1",
+      sha1 = "e9135c43d12b30a6d02706e97ce256a90d68dc9d",
+      server = "closure_maven_server",
+  )
+
 def json():
   native.maven_jar(
       name = "json",
       artifact = "org.json:json:20160212",
       sha1 = "a742e3f85161835b95877478c5dd5b405cefaab9",
+      server = "closure_maven_server",
+  )
+
+def jsr250():
+  native.maven_jar(
+      name = "jsr250",
+      artifact = "javax.annotation:jsr250-api:1.0",
+      sha1 = "5025422767732a1ab45d93abfea846513d742dcf",
       server = "closure_maven_server",
   )
 
@@ -401,62 +423,67 @@ def phantomjs():
 def protobuf_java():
   native.maven_jar(
       name = "protobuf_java",
-      artifact = "com.google.protobuf:protobuf-java:3.2.0",
-      sha1 = "62ccf171a106ff6791507f2d5364c275f9a3131d",
+      artifact = "com.google.protobuf:protobuf-java:3.3.0",
+      sha1 = "9f301d1a27501b1afcb2ed16aad428337dabf9e4",
       server = "closure_maven_server",
   )
 
 def protobuf_js():
+  # 3.3.0 has a Closure Compiler bug because it references Node's Buffer
+  # type. This was fixed in f00e06c95bc117fb2ed0ca56c96041c93039f1fe.
+  #
+  # TODO(jart): Update when https://github.com/google/protobuf/pull/3387
+  #             is merged.
   native.new_http_archive(
       name = "protobuf_js",
-      url = "http://bazel-mirror.storage.googleapis.com/github.com/google/protobuf/releases/download/v3.2.0/protobuf-js-3.2.0.zip",
-      sha256 = "6385372e081bfb89a904944af1fae02542fefa9db86709f08c86ac0ee14c5651",
-      strip_prefix = "protobuf-3.2.0",
+      url = "http://mirror.bazel.build/github.com/google/protobuf/archive/33545583286a31940b6a732b1888e639cdf2e3c4.tar.gz",
+      sha256 = "ecd9f92f137e75d140a8b611cd2c0d6c0f34f561946dc5f7fcecde631bb13c25",
+      strip_prefix = "protobuf-33545583286a31940b6a732b1888e639cdf2e3c4",
       build_file = str(Label("//closure/protobuf:protobuf_js.BUILD")),
   )
 
 def protoc_linux_x86_64():
   native.http_file(
       name = "protoc_linux_x86_64",
-      url = "http://bazel-mirror.storage.googleapis.com/github.com/google/protobuf/releases/download/v3.2.0/protoc-3.2.0-linux-x86_64.zip",
-      sha256 = "9cf9a8661d649b8477fe0ad32a8b28d351a170a62e210bf848d90a29f1f4df9d",
+      url = "http://bazel-mirror.storage.googleapis.com/github.com/google/protobuf/releases/download/v3.3.0/protoc-3.3.0-linux-x86_64.zip",
+      sha256 = "feb112bbc11ea4e2f7ef89a359b5e1c04428ba6cfa5ee628c410eccbfe0b64c3",
   )
 
 def protoc_macosx():
   native.http_file(
       name = "protoc_macosx",
-      url = "http://bazel-mirror.storage.googleapis.com/github.com/google/protobuf/releases/download/v3.2.0/protoc-3.2.0-osx-x86_64.zip",
-      sha256 = "69fbd04599c53af7826f9a6cf2a34f15aec6e0800c24cd572f4f5ba9e156a2cb",
+      url = "http://bazel-mirror.storage.googleapis.com/github.com/google/protobuf/releases/download/v3.3.0/protoc-3.3.0-osx-x86_64.zip",
+      sha256 = "d752ba0ea67239e327a48b2f23da0e673928a9ff06ee530319fc62200c0aff89",
   )
 
 def safe_html_types():
   native.maven_jar(
       name = "safe_html_types",
-      artifact = "com.google.common.html.types:types:1.0.5",
-      sha1 = "cbf72feac4a1599add33222a876e24ab31a3f387",
+      artifact = "com.google.common.html.types:types:1.0.7",
+      sha1 = "7d4afac9f631a2c1adecc21350a4e88241185eb4",
       server = "closure_maven_server",
   )
 
 def safe_html_types_html_proto():
   native.http_file(
       name = "safe_html_types_html_proto",
-      sha256 = "6ece202f11574e37d0c31d9cf2e9e11a0dbc9218766d50d211059ebd495b49c3",
-      url = "http://bazel-mirror.storage.googleapis.com/raw.githubusercontent.com/google/safe-html-types/release-1.0.5/proto/src/main/protobuf/webutil/html/types/proto/html.proto",
+      sha256 = "9196aa9e0dc231969ea969e1e752707cb391b5a3687c6c72089dd0edaad2d5f9",
+      url = "http://mirror.bazel.build/raw.githubusercontent.com/google/safe-html-types/release-1.0.7/proto/src/main/protobuf/webutil/html/types/html.proto",
   )
 
 def soy():
   native.maven_jar(
       name = "soy",
-      artifact = "com.google.template:soy:2017-04-23",
-      sha1 = "52f32a5a3801ab97e0909373ef7f73a3460d0802",
+      artifact = "com.google.template:soy:2017-08-08",
+      sha1 = "792aa49e3ec3f61e793e56b499f0724df1c1e16c",
       server = "closure_maven_server",
   )
 
 def soy_jssrc():
   native.new_http_archive(
       name = "soy_jssrc",
-      sha256 = "ed0be8195f5a05eea82099d234dab074ca80d7c1f2e54928e0fb2ee0a7ba666d",
-      url = "http://bazel-mirror.storage.googleapis.com/repo1.maven.org/maven2/com/google/template/soy/2017-02-01/soy-2017-02-01-jssrc_js.jar",
+      sha256 = "a902d3aef1db603890945fe645217209b81e527ef26a9b89b7647172629c6810",
+      url = "http://mirror.bazel.build/repo1.maven.org/maven2/com/google/template/soy/2017-08-08/soy-2017-08-08-jssrc_js.jar",
       build_file = str(Label("//closure/templates:soy_jssrc.BUILD")),
       type = "zip",
   )

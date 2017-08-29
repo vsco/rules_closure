@@ -8,6 +8,7 @@ java_library(
     runtime_deps = [
         "//third_party/java/jscomp",
         "@args4j//jar",
+        "@errorprone//jar",
         "@gson//jar",
         "@guava//jar",
         "@jsr305//jar",

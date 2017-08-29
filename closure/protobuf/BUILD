@@ -24,6 +24,7 @@ closure_js_library(
     suppress = [
         "JSC_EXTRA_REQUIRE_WARNING",
         "JSC_OPTIONAL_PARAM_NOT_MARKED_OPTIONAL",
+        "JSC_MISSING_REQUIRE_STRICT_WARNING",
     ],
     deps = ["//closure/library"],
 )

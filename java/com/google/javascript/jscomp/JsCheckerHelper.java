@@ -10,7 +10,10 @@ import java.util.NavigableSet;
 final class JsCheckerHelper {
 
   static boolean isEs6OrHigher(LanguageMode language) {
-    return language == LanguageMode.ECMASCRIPT6_STRICT
+    return language == LanguageMode.ECMASCRIPT_2015
+        || language == LanguageMode.ECMASCRIPT_2016
+        || language == LanguageMode.ECMASCRIPT_2017
+        || language == LanguageMode.ECMASCRIPT_NEXT
         || language == LanguageMode.ECMASCRIPT6_TYPED;
   }
 

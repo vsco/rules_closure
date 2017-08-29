@@ -32,12 +32,6 @@ load("//closure/private:defs.bzl",
      "determine_js_language",
      "difference")
 
-_STRICT_LANGUAGES = set([
-    "ECMASCRIPT6_TYPED",
-    "ECMASCRIPT6_STRICT",
-    "ECMASCRIPT5_STRICT",
-])
-
 # TODO(jart): Properly propagate exceptions up here.
 _SUPPRESS_THINGS_JSCHECKER_ALREADY_DID = [
     # See also: ERRORS in JsChecker.java
@@ -70,8 +64,8 @@ def _impl(ctx):
       "--js_output_file", ctx.outputs.out.path,
       "--create_source_map", ctx.outputs.map.path,
       "--output_errors", ctx.outputs.stderr.path,
-      "--language_in", language_in,
-      "--language_out", language_out,
+      "--language_in", _kludge_js_language(language_in),
+      "--language_out", _kludge_js_language(language_out),
       "--compilation_level", ctx.attr.compilation_level,
       "--dependency_mode", ctx.attr.dependency_mode,
       "--warning_level", ctx.attr.warning_level,
@@ -135,8 +129,6 @@ def _impl(ctx):
     if src.owner == BASE_JS:
       if not ctx.attr.debug:
         args.append("--define=goog.DEBUG=false")
-      if language_out in _STRICT_LANGUAGES:
-        args.append("--define=goog.STRICT_MODE_COMPATIBLE")
     elif src.owner == SOYUTILS_USEGOOG_JS:
       args.append("--define=goog.soy.REQUIRE_STRICT_AUTOESCAPE")
     elif src.owner == JSON_JS:
@@ -227,6 +219,11 @@ def _validate_entry_point(entry_point, srcs):
              "There is no JS source in the transitive closure of " +
              "dependencies for this rule whose path is equivalent " +
              "to this name" + extra)
+
+def _kludge_js_language(language):
+  if language in ("ECMASCRIPT6", "ECMASCRIPT6_STRICT"):
+    return "ECMASCRIPT_2017"
+  return language
 
 closure_js_binary = rule(
     implementation=_impl,
