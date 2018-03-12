@@ -51,7 +51,10 @@ closure_js_library(
 closure_js_library(
     name = "soy_jssrc_idom",
     srcs = ["@com_google_template_soy_jssrc//:idom"],
-    suppress = ["reportUnknownTypes"],
+    suppress = [
+        "reportUnknownTypes",
+        "JSC_STRICT_INEXISTENT_PROPERTY",
+    ],
     deps = [
         ":soy_jssrc",
         "//closure/library",
