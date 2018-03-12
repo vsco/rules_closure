@@ -39,6 +39,7 @@ closure_js_library(
         "JSC_NTI_RETURN_NONDECLARED_TYPE",
         "JSC_NTI_UNKNOWN_EXPR_TYPE",
         "JSC_NULLABLE_RETURN_WITH_NAME",
+        "JSC_STRICT_INEXISTENT_PROPERTY",
         "JSC_UNKNOWN_EXPR_TYPE",
     ],
     deps = [
