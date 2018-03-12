@@ -581,22 +581,15 @@ def com_google_javascript_closure_library():
   # To update Closure Library, one needs to uncomment and run the
   # js_library_files_maker and js_testing_files_maker genrules in
   # closure_library.BUILD.
-  # native.new_http_archive(
-  #     name = "com_google_javascript_closure_library",
-  #     urls = [
-  #         "https://mirror.bazel.build/github.com/google/closure-library/archive/v20180204.tar.gz",
-  #         "https://github.com/google/closure-library/archive/v20180204.tar.gz",
-  #     ],
-  #     sha256 = "3b61be4a8ae4002ae41bb083db5ef3eddc2abce4d2d7f1776ac56cc9d9774340",
-  #     strip_prefix = "closure-library-20180204",
-  #     build_file = str(Label("//closure/library:closure_library.BUILD")),
-  # )
-
-  new_git_repository(
+  native.new_http_archive(
       name = "com_google_javascript_closure_library",
-      remote = "https://github.com/vsco/closure-library.git",
-      tag = "master",
-      build_file = str(Label("//closure/library:closure_library.BUILD")),   
+      urls = [
+          "https://mirror.bazel.build/github.com/vsco/closure-library/archive/v20180204_vsco.tar.gz",
+          "https://github.com/vsco/closure-library/archive/v20180204_vsco.tar.gz",
+      ],
+      sha256 = "cc655b530cfac7ccb468e82214c6ddc02517181e64f6f0afd0ec93312398cce6",
+      strip_prefix = "closure-library-20180204_vsco",
+      build_file = str(Label("//closure/library:closure_library.BUILD")),
   )
 
 def com_google_javascript_incremental_dom():
