@@ -595,6 +595,7 @@ def com_google_javascript_closure_library():
   new_git_repository(
       name = "com_google_javascript_closure_library",
       remote = "https://github.com/vsco/closure-library.git",
+      tag = "HEAD",
       build_file = str(Label("//closure/library:closure_library.BUILD")),   
   )
 
