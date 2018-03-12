@@ -513,6 +513,7 @@ filegroup(
         "closure/goog/net/mockiframeio.js",
         "closure/goog/net/multiiframeloadmonitor.js",
         "closure/goog/net/networkstatusmonitor.js",
+        "closure/goog/net/networktester.js",
         "closure/goog/net/rpc/httpcors.js",
         "closure/goog/net/streams/base64pbstreamparser.js",
         "closure/goog/net/streams/base64streamdecoder.js",
