@@ -57,7 +57,7 @@ closure_js_library(
         "JSC_STRICT_INEXISTENT_PROPERTY",
         "JSC_UNKNOWN_EXPR_TYPE",
         "JSC_UNNECESSARY_ESCAPE",
-        "JSC_UNUSED_PRIVATE_PROPERTY",        
+        "JSC_UNUSED_PRIVATE_PROPERTY",
         "lintChecks",
     ],
 )
