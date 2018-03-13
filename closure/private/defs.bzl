@@ -227,7 +227,7 @@ def library_level_checks(ctx, ijs_deps, srcs, executable, output, suppress = [])
   args = [
       "JsCompiler",
       "--checks_only",
-      "--incremental_check_mode", "CHECK_IJS",
+      "--incremental_check_mode", "OFF",
       "--warning_level", "VERBOSE",
       "--jscomp_off", "reportUnknownTypes",
       "--language_in", "ECMASCRIPT_2017",
