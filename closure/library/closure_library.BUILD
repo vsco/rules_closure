@@ -123,7 +123,7 @@ filegroup(
         "closure/goog/debug/logrecordserializer.js",
         "closure/goog/debug/relativetimeprovider.js",
         "closure/goog/debug/tracer.js",
-        "closure/goog/delegate/delegateregistry.js",
+        # "closure/goog/delegate/delegateregistry.js",
         "closure/goog/delegate/delegates.js",
         "closure/goog/disposable/disposable.js",
         "closure/goog/disposable/idisposable.js",
